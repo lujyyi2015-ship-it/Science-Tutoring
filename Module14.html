@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 14: Matter, Heat &amp; Fluids</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f8fb;--card:#fff;--ink:#10283d;--mut:#51677b;--blue:#1b86d6;--hot:#e8591a;--mint:#0e8f6c;--line:#d5e2ec;--water:#bfe3fa;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1a28;--card:#13293d;--ink:#e6f1fa;--mut:#9db4c7;--blue:#4cb0f5;--hot:#ff8c55;--mint:#3fd7ae;--line:#264159;--water:#1c4a6e}}
+:root[data-theme="dark"]{--bg:#0b1a28;--card:#13293d;--ink:#e6f1fa;--mut:#9db4c7;--blue:#4cb0f5;--hot:#ff8c55;--mint:#3fd7ae;--line:#264159;--water:#1c4a6e}
+*{box-sizing:border-box}
+html{scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 Nunito,system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+h1,h2,h3{font-family:Fredoka,system-ui,sans-serif;line-height:1.15;margin:0 0 .4em}
+h1{font-size:clamp(32px,7vw,52px)}h2{font-size:28px}
+header,main{max-width:860px;margin:0 auto;padding:0 18px}
+header{padding-top:34px}header p{color:var(--mut);max-width:60ch}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:var(--bg);display:flex;gap:8px;padding:10px 18px;max-width:860px;margin:0 auto}
+nav button{flex:1;font:600 16px Fredoka,system-ui,sans-serif;padding:12px 8px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);cursor:pointer}
+nav button[aria-selected=true]{background:var(--blue);border-color:var(--blue);color:#06121d}
+.les{display:none}.les.on{display:block}
+.sec{margin:46px 0}
+.lab{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.real{border-left:4px solid var(--mint);padding:2px 12px;color:var(--mut);margin:10px 0}
+.big{font:600 22px Fredoka,system-ui,sans-serif;margin:8px 0}
+.vid{font-size:15px;color:var(--mut)}.vid a{color:var(--blue);margin-right:12px}
+input[type=range]{width:100%;accent-color:var(--blue)}
+select,input[type=number],.btn{font:inherit;padding:8px 10px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+input[type=number]{width:80px}
+.btn{cursor:pointer;font-weight:700;background:var(--blue);border-color:var(--blue);color:#06121d}
+.btn.alt{background:var(--card);color:var(--ink);border-color:var(--line)}
+.bar{height:14px;border-radius:7px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:var(--hot);min-width:2px}
+.bar.b i{background:var(--blue)}
+.tri{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;font-size:15px;color:var(--mut)}.tri b{color:var(--ink)}
+details{border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;background:var(--card)}summary{cursor:pointer;font-weight:700}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.tubes{display:flex;gap:26px;justify-content:center;margin:12px 0}
+.tube{width:58px;height:210px;border:3px solid var(--mut);border-radius:6px 6px 24px 24px;position:relative;overflow:hidden}
+.tube i{position:absolute;left:17px;top:2px;width:20px;height:20px;border-radius:50%;background:#444;border:2px solid #fff}
+.tc{text-align:center;font-size:14px}
+@keyframes hot{from{fill:#1b86d6}to{fill:#e8591a}}@keyframes sh{50%{transform:translateY(2px)}}@keyframes dash{to{stroke-dashoffset:-24}}
+.p{animation:hot 3s ease-in-out infinite alternate,sh .3s infinite;animation-delay:calc(var(--i)*.3s),0s}
+.ray{stroke:#e8a31a;stroke-width:3;stroke-dasharray:8 16;animation:dash 1s linear infinite}
+@media(prefers-reduced-motion:reduce){.p,.ray{animation:none}}
+</style></head><body>
+<header><h1>Matter, heat &amp; fluids</h1>
+<p>Grade 9 Physical Science, Module 14. Drag the sliders, drop things into water and watch what the particles do. Every idea comes with a real example.</p></header>
+<nav role="tablist"><button role="tab" aria-selected="true" data-t="l1">Lesson 1: Matter &amp; thermal energy</button><button role="tab" aria-selected="false" data-t="l2">Lesson 2: Properties of fluids</button></nav>
+<main>
+
+<div id="l1" class="les on">
+<section class="sec"><h2>Everything is made of moving particles</h2>
+<p>All matter is built from tiny particles that never stop moving. The hotter something is, the faster they move. Slide the energy up and watch ice turn into water, then steam. Notice the temperature graph goes flat while the state changes: the energy is busy breaking the attractions between particles (latent heat).</p>
+<div class="lab"><div class="row">
+<canvas id="pc" width="360" height="240" style="max-width:100%;flex:1 1 300px;background:var(--bg);border-radius:10px" aria-label="Particle simulation"></canvas>
+<svg id="hc" viewBox="0 0 200 150" style="flex:1 1 200px;max-width:260px" aria-label="Heating curve">
+<path d="M10 10V135H190" fill="none" stroke="var(--mut)" stroke-width="2"/>
+<polyline points="10,135 44,121 78,121 120,51 154,51 180,23" fill="none" stroke="var(--hot)" stroke-width="3"/>
+<circle id="hd" r="6" fill="var(--blue)" stroke="var(--card)" stroke-width="2"/>
+<g font-size="8" fill="var(--mut)"><text x="12" y="9">Temperature</text><text x="120" y="147">Energy added</text><text x="46" y="114">melting</text><text x="122" y="44">boiling</text></g></svg></div>
+<label>Energy added<input type="range" id="en" min="0" max="100" step="0.5" value="8"></label>
+<button class="btn" id="play">Heat it up</button>
+<p class="big" id="sn"></p><p class="real" id="sr"></p></div>
+<div class="tri"><div><b>Solid:</b> fixed shape and volume. Particles vibrate in place.</div><div><b>Liquid:</b> fixed volume, changing shape. Particles slide past each other.</div><div><b>Gas:</b> changing shape and volume. Particles fly freely, far apart.</div></div>
+<p class="vid">Watch real examples: <a href="https://www.youtube.com/results?search_query=states+of+matter+particles+animation" target="_blank" rel="noopener">States of matter</a><a href="https://www.youtube.com/results?search_query=water+boiling+temperature+stays+100+latent+heat" target="_blank" rel="noopener">Boiling and latent heat</a></p></section>
+
+<section class="sec"><h2>Temperature is not thermal energy</h2>
+<p>Temperature is the average kinetic energy of the particles. Thermal energy is the total for all of them, so it also depends on how much stuff there is. Set both to the same temperature and compare.</p>
+<div class="lab"><div class="row" id="te"></div><p class="big" id="tx"></p>
+<p class="real">Real example: a cup of tea and a swimming pool can both be 40 °C, but the pool could heat your whole house for days. That is why a huge iceberg holds more thermal energy than a boiling kettle.</p></div></section>
+
+<section class="sec"><h2>Three ways heat moves</h2>
+<div class="row"><button class="btn" data-h="c">Conduction</button><button class="btn alt" data-h="v">Convection</button><button class="btn alt" data-h="r">Radiation</button></div>
+<div class="lab"><svg id="hs" viewBox="0 0 300 150" style="width:100%;max-height:230px" aria-label="Heat transfer animation"></svg><h3 id="ht"></h3><p id="hx"></p><p class="real" id="hr"></p></div>
+<p class="vid">Watch real examples: <a href="https://www.youtube.com/results?search_query=conduction+convection+radiation+experiments" target="_blank" rel="noopener">Heat transfer experiments</a><a href="https://www.youtube.com/results?search_query=convection+current+food+coloring+water" target="_blank" rel="noopener">Convection currents</a></p></section>
+
+<section class="sec"><h2>Test yourself</h2><p>Think first, then open the answer.</p>
+<details><summary>Why does a metal spoon feel colder than a wooden spoon at room temperature?</summary><p>Metal is a better conductor. Heat flows quickly from your hand into the metal, so it feels colder.</p></details>
+<details><summary>Hot tea and a swimming pool are both 40 °C. Which has more thermal energy?</summary><p>The pool. It has far more particles (greater mass), so more total thermal energy.</p></details>
+<details><summary>Using particles, what happens when ice melts at 0 °C even though the temperature isn’t rising?</summary><p>The energy breaks the attractions holding the solid structure together. The temperature stays constant until all the ice has melted.</p></details>
+<details><summary>How does convection help heat a room when the heater is near the floor?</summary><p>Warm air near the heater rises and cooler air sinks to take its place. This convection current circulates the heat.</p></details></section>
+</div>
+
+<div id="l2" class="les">
+<section class="sec"><h2>Density: why things sink or float</h2>
+<p>Fluids are liquids and gases: anything that flows. Density is how much mass is packed into a volume: <b>D = m ÷ V</b>. Pure water is about 1.0 g/cm³. Denser than the fluid means it sinks, less dense means it floats. Archimedes’ principle says the buoyant force equals the weight of the fluid pushed aside.</p>
+<div class="lab"><div class="row"><label>Object <select id="ms"></select></label><label>Fluid <select id="ls"></select></label></div>
+<svg viewBox="0 0 300 200" style="max-width:340px;width:100%;display:block;margin:8px auto" aria-label="Tank">
+<rect id="lq" x="20" y="60" width="260" height="130"/><path d="M20 20V190H280V20" fill="none" stroke="var(--mut)" stroke-width="4"/>
+<g id="ob" style="transition:transform 1.2s ease-in-out"><rect id="obr" x="128" y="0" width="44" height="44" rx="5" stroke="var(--ink)" stroke-width="2"/></g></svg>
+<p id="tr"></p>
+<p>Try your own: mass <input type="number" id="cm" value="50" min="0"> g, volume <input type="number" id="cv" value="25" min="1"> cm³ <b id="cr"></b></p></div>
+<p class="real">Real examples: ice floats because it is less dense than water. In the Dead Sea the salty water is so dense that people float easily. A steel ship floats because its hull is full of air, so its average density is below water’s.</p>
+<p class="vid">Watch real examples: <a href="https://www.youtube.com/results?search_query=dead+sea+floating+density" target="_blank" rel="noopener">Floating in the Dead Sea</a><a href="https://www.youtube.com/results?search_query=archimedes+principle+experiment+eureka+can" target="_blank" rel="noopener">Archimedes experiment</a></p></section>
+
+<section class="sec"><h2>Pressure grows with depth</h2>
+<p>Pressure is force ÷ area (P = F ÷ A), measured in pascals. In a fluid it rises with depth and with density, and at any depth it pushes equally in every direction. Move the diver.</p>
+<div class="lab"><div class="row"><svg viewBox="0 0 300 220" style="flex:1 1 260px;max-width:320px" aria-label="Diver in water">
+<defs><marker id="ar" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6z" fill="var(--hot)"/></marker></defs>
+<rect x="20" y="30" width="260" height="180" fill="var(--water)"/><text id="dv" x="110" y="50" font-size="28" text-anchor="middle">🤿</text>
+<g id="ag" stroke="var(--hot)" stroke-width="3" marker-end="url(#ar)"><line/><line/><line/><line/></g></svg>
+<div style="flex:1 1 200px"><label>Depth<input type="range" id="dp" min="0" max="30" step="0.5" value="2"></label>
+<label>Fluid <select id="pf"><option value="1000">Fresh water</option><option value="1025">Sea water</option><option value="920">Cooking oil</option></select></label>
+<p class="big" id="pr"></p><div class="bar"><i id="pb"></i></div><p id="pt"></p></div></div></div>
+<p class="real">Real example: at the bottom of a 3 m pool you already feel it in your ears. At about 10 m, the water alone adds one whole atmosphere, which is why scuba divers equalize their ears.</p></section>
+
+<section class="sec"><h2>Pascal’s principle: a small push, a big lift</h2>
+<p>Pressure applied to an enclosed fluid is passed on equally everywhere. So a small force on a small piston makes the same pressure on a big piston, and that pressure times a bigger area gives a bigger force.</p>
+<div class="lab"><svg viewBox="0 0 300 180" style="width:100%;max-width:420px;display:block;margin:auto" aria-label="Hydraulic lift">
+<rect x="30" y="80" width="30" height="90" fill="var(--blue)"/><rect x="140" y="80" width="130" height="90" fill="var(--blue)"/><rect x="30" y="140" width="240" height="30" fill="var(--blue)"/>
+<g id="pl" style="transition:transform .6s"><rect x="32" y="72" width="26" height="8" fill="var(--ink)"/><rect x="43" y="40" width="4" height="32" fill="var(--ink)"/></g>
+<g id="pq" style="transition:transform .8s"><rect x="142" y="72" width="126" height="8" fill="var(--ink)"/><text x="205" y="70" font-size="40" text-anchor="middle">🚗</text></g>
+<g font-size="11" fill="var(--ink)"><text x="20" y="22">Small piston</text><text x="170" y="100">Big piston</text></g></svg>
+<label>Your push on the small piston: <b id="f1v"></b><input type="range" id="f1" min="10" max="200" step="10" value="100"></label>
+<label>Big piston area compared with the small one: <b id="rv"></b><input type="range" id="rt" min="1" max="100" value="20"></label>
+<p class="big" id="pa"></p><div class="bar b"><i id="pm"></i></div><p id="pn"></p></div>
+<p class="real">Real examples: hydraulic car lifts, car brakes, excavator arms and dentist chairs. The catch is you push the small piston much farther than the big one rises, so energy is never created.</p>
+<p class="vid">Watch real examples: <a href="https://www.youtube.com/results?search_query=hydraulic+lift+how+it+works+pascal%27s+principle" target="_blank" rel="noopener">How a hydraulic lift works</a><a href="https://www.youtube.com/results?search_query=syringe+hydraulic+experiment" target="_blank" rel="noopener">Syringe hydraulics</a></p></section>
+
+<section class="sec"><h2>Viscosity: how thick is the fluid?</h2>
+<p>Viscosity is a fluid’s resistance to flowing. Drop three identical balls and see how fluid thickness changes the fall (times are scaled for the animation).</p>
+<div class="lab"><div class="tubes" id="tb"></div><div style="text-align:center"><button class="btn" id="drop">Drop the balls</button></div>
+<p class="real">Real examples: honey is thousands of times more viscous than water and cooking oil is roughly fifty times more. Warm honey flows faster, because heating lowers viscosity. That is why engine oil is rated for hot and cold weather.</p></div></section>
+
+<section class="sec"><h2>Test yourself</h2><p>Think first, then open the answer.</p>
+<details><summary>A 50 g object has a volume of 25 cm³. What is its density, and does it float in water?</summary><p>D = 50 ÷ 25 = 2.0 g/cm³. It sinks because it is denser than water (1.0 g/cm³).</p></details>
+<details><summary>Why do your ears feel more pressure deeper in a pool?</summary><p>Pressure increases with depth. More water above means greater force per area on your ears.</p></details>
+<details><summary>How does a hydraulic lift raise a car with a small force?</summary><p>A small force on a small piston creates a pressure that is transmitted equally. On the larger piston, that pressure produces a larger force that can lift the car.</p></details>
+<details><summary>Why does a steel ship float even though steel is denser than water?</summary><p>The ship’s average density, including the air inside the hull, is less than water’s, so the buoyant force can support its weight.</p></details></section>
+</div>
+</main>
+<script>
+const $=id=>document.getElementById(id),Q=s=>document.querySelectorAll(s),cl=(v,a,b)=>Math.min(b,Math.max(a,v));
+Q('nav button').forEach(b=>b.onclick=()=>{Q('nav button').forEach(x=>x.setAttribute('aria-selected',x==b));Q('.les').forEach(s=>s.classList.toggle('on',s.id==b.dataset.t));scrollTo(0,0)});
+
+/* Lesson 1: particles + heating curve */
+const T=e=>e<20?e-20:e<40?0:e<65?(e-40)*4:e<85?100:100+(e-85)*8/3;
+const P=[...Array(40)].map((_,i)=>{const a=Math.random()*6.28,hx=40+(i%8)*40,hy=130+((i/8)|0)*24;return{hx,hy,x:hx,y:hy,ux:Math.cos(a),uy:Math.sin(a)}});
+const ctx=$('pc').getContext('2d');let t=0,playing=false;
+const S=[[20,'Solid (ice)','An ice cube in the freezer. The particles only vibrate.'],[40,'Melting: still 0 °C','Ice in your drink. The temperature is stuck at 0 °C while the energy loosens the particles.'],[65,'Liquid water','Water warming in a kettle. Particles slide past each other, faster as it heats.'],[85,'Boiling: still 100 °C','Water boiling in a pot. It stays at 100 °C until it has all become steam.'],[101,'Gas (steam)','Steam rising from a pot. The particles fly far apart at high speed.']];
+function loop(){t+=.03;const E=+$('en').value,Tm=T(E),f1=cl((E-20)/20,0,1),g=cl((E-65)/20,0,1);
+ if(playing){$('en').value=E+.15;if(E>=99.8){playing=false;$('play').textContent='Heat it up'}}
+ ctx.clearRect(0,0,360,240);
+ P.forEach((p,i)=>{const q=i/40,m=q<g?2:q<f1?1:0;
+  if(!m){const a=.8+(Tm+20)/20*1.6;p.x=p.hx+Math.sin(t*5+i)*a;p.y=p.hy+Math.cos(t*4.3+i*1.7)*a}
+  else{const s=m==1?1+Tm/60:3+Math.max(0,Tm-100)/20,top=m==1?95:8;p.x+=p.ux*s;p.y+=p.uy*s;
+   if(p.x<8||p.x>352){p.ux*=-1;p.x=cl(p.x,8,352)}if(p.y<top||p.y>232){p.uy*=-1;p.y=cl(p.y,top,232)}}
+  ctx.fillStyle=['#1b86d6','#0fa98a','#e8591a'][m];ctx.beginPath();ctx.arc(p.x,p.y,7,0,7);ctx.fill()});
+ const s=S.find(x=>E<x[0]);$('sn').textContent=s[1]+' at '+Tm.toFixed(0)+' °C';$('sr').textContent='Real example: '+s[2];
+ $('hd').setAttribute('cx',10+E*1.7);$('hd').setAttribute('cy',135-(Tm+20)*.7);requestAnimationFrame(loop)}
+$('play').onclick=()=>{playing=!playing;if(playing&&+$('en').value>=99)$('en').value=0;$('play').textContent=playing?'Pause':'Heat it up'};
+$('en').oninput=()=>{playing=false;$('play').textContent='Heat it up'};loop();
+
+/* Temperature vs thermal energy */
+const TE=[['Cup of tea','☕',.25,20,90],['Swimming pool','🏊',5e4,10,40]];
+$('te').innerHTML=TE.map((o,k)=>`<div style="flex:1 1 220px"><b>${o[1]} ${o[0]}</b> (${o[2].toLocaleString()} kg)<label>Temperature <output id="to${k}"></output><input type="range" id="ts${k}" min="${o[3]}" max="${o[4]}" value="40"></label>Temperature<div class="bar"><i id="tb${k}"></i></div>Thermal energy<div class="bar b"><i id="te${k}"></i></div><small id="tk${k}"></small></div>`).join('');
+function teUp(){const Q2=TE.map((o,k)=>{const v=+$('ts'+k).value,q=o[2]*4.18*v;$('to'+k).textContent=v+' °C';$('tb'+k).style.width=v+'%';$('te'+k).style.width=q/(5e4*4.18*40)*100+'%';$('tk'+k).textContent='Heat stored above 0 °C ≈ '+Math.round(q).toLocaleString()+' kJ';return q});
+ $('tx').textContent=`The pool holds ${Math.round(Q2[1]/Q2[0]).toLocaleString()}× more thermal energy than the cup.`}
+TE.forEach((_,k)=>$('ts'+k).oninput=teUp);teUp();
+
+/* Heat transfer */
+const HT={c:['Conduction','Heat passes by direct contact: fast particles bump their neighbours and pass the energy along. It works best in solids, especially metals.','Hot spoon in soup. The handle heats up even though only the bowl touches the soup.',
+ '<text x="8" y="25" font-size="12" fill="var(--ink)">🔥 hot soup</text><text x="200" y="25" font-size="12" fill="var(--ink)">your hand 🖐️</text>'+[...Array(12)].map((_,i)=>`<circle class="p" style="--i:${i}" cx="${30+i*22}" cy="75" r="9"/>`).join('')],
+ v:['Convection','Heat moves with a flowing fluid: warm fluid rises, cool fluid sinks, and a loop forms.','A room heater near the floor, or water boiling in a pot.',
+ '<rect x="40" y="20" width="220" height="115" rx="8" fill="none" stroke="var(--mut)" stroke-width="3"/><rect x="48" y="118" width="40" height="17" fill="var(--hot)"/><text x="52" y="131" font-size="10" fill="#fff">heater</text><text x="120" y="55" font-size="11" fill="var(--mut)">warm air rises</text><text x="120" y="112" font-size="11" fill="var(--mut)">cool air sinks</text>'+[...Array(8)].map((_,i)=>`<circle r="5" fill="var(--hot)"><animateMotion dur="6s" begin="-${i*.75}s" repeatCount="indefinite" path="M68 112 L68 38 L240 38 L240 112 Z"/></circle>`).join('')],
+ r:['Radiation','Heat travels as electromagnetic waves. No material is needed, so it crosses empty space.','The Sun warming your face, or a campfire warming your hands.',
+ '<circle cx="40" cy="75" r="24" fill="#f5b81c"/>'+[40,60,75,90,110].map(y=>`<line class="ray" x1="70" y1="${y}" x2="230" y2="75"/>`).join('')+'<text x="235" y="85" font-size="34">🙂</text><text x="100" y="22" font-size="11" fill="var(--mut)">empty space in between: no air needed</text>']};
+function ht(k){const h=HT[k];$('hs').innerHTML=h[3];$('ht').textContent=h[0];$('hx').textContent=h[1];$('hr').textContent='Real example: '+h[2];Q('[data-h]').forEach(b=>b.classList.toggle('alt',b.dataset.h!=k))}
+Q('[data-h]').forEach(b=>b.onclick=()=>ht(b.dataset.h));ht('c');
+
+/* Lesson 2: density tank */
+const M=[['Cork',.24,'#c9a27a'],['Pine wood',.55,'#b07a3d'],['Steel ship (hull full of air)',.6,'#7a8794'],['Ice',.92,'#dff3fb'],['Aluminium',2.7,'#b9c2cc'],['Steel block',7.85,'#5c6773'],['Gold',19.3,'#e6b422']],L=[['Water',1,'#8fd0f5'],['Cooking oil',.91,'#e8c64a'],['Dead Sea water',1.24,'#7fb8c9']];
+$('ms').innerHTML=M.map((m,i)=>`<option value="${i}">${m[0]}</option>`).join('');$('ls').innerHTML=L.map((m,i)=>`<option value="${i}">${m[0]}</option>`).join('');$('ms').value=3;
+function tank(){const m=M[+$('ms').value],l=L[+$('ls').value],V=100,ms=m[1]*V,fl=m[1]<l[1],f=fl?m[1]/l[1]:1;
+ $('ob').style.transform=`translateY(${fl?60-44*(1-f):146}px)`;$('obr').setAttribute('fill',m[2]);$('lq').setAttribute('fill',l[2]);
+ const W=ms/1000*9.8,B=l[1]*V*f/1000*9.8;
+ $('tr').innerHTML=`${m[0]}: m = ${ms.toFixed(0)} g, V = ${V} cm³, so D = m ÷ V = <b>${m[1]} g/cm³</b>. ${l[0]} is ${l[1]} g/cm³, so it <b>${fl?'floats':'sinks'}</b>.<br>Weight ${W.toFixed(2)} N, buoyant force ${B.toFixed(2)} N ${fl?'(equal, so it stays up)':'(smaller than the weight, so it sinks)'}.`}
+function calc(){const m=+$('cm').value,v=+$('cv').value,d=m/v;$('cr').textContent=v>0?`→ D = ${d.toFixed(2)} g/cm³: ${d>1?'sinks':d<1?'floats':'hovers'} in water`:'(enter a volume above 0)'}
+$('ms').onchange=$('ls').onchange=tank;$('cm').oninput=$('cv').oninput=calc;tank();calc();
+
+/* Pressure */
+function pres(){const d=+$('dp').value,r=+$('pf').value,w=r*9.8*d/1000,Pt=101.3+w,y=50+d/30*150,L2=6+Pt/18;
+ $('dv').setAttribute('y',y);const ls=[...$('ag').children],c=110,g=22;
+ [[c-g-L2,y-10,c-g,y-10],[c+g+L2,y-10,c+g,y-10],[c,y-34-L2,c,y-34],[c,y+14+L2,c,y+14]].forEach((a,i)=>['x1','y1','x2','y2'].forEach((n,j)=>ls[i].setAttribute(n,a[j])));
+ $('pr').textContent=Pt.toFixed(0)+' kPa at '+d+' m';$('pb').style.width=Pt/4+'%';
+ $('pt').textContent=`The water adds ${w.toFixed(0)} kPa (${(w/101.3).toFixed(1)} atmospheres) on top of the air’s 101 kPa. It pushes equally on every side. ${d>=10?'Deep enough that ears and lungs feel it strongly.':d>=2?'Your ears start to notice it.':'Barely any extra pressure here.'}`}
+$('dp').oninput=$('pf').onchange=pres;pres();
+
+/* Pascal */
+function pas(){const F=+$('f1').value,r=+$('rt').value,F2=F*r,Wc=11760,lift=F2>=Wc;
+ $('f1v').textContent=F+' N';$('rv').textContent=r+'×';$('pl').style.transform=`translateY(${cl(F/200*14,2,14)}px)`;$('pq').style.transform=`translateY(${lift?-28:0}px)`;
+ $('pa').textContent=`Output force: ${F2.toLocaleString()} N`;$('pm').style.width=cl(F2/Wc*100,2,100)+'%';
+ $('pn').textContent=lift?`That beats the car’s weight (about 11,760 N for a 1,200 kg car), so it lifts. You push ${r} cm to raise it 1 cm.`:`The car weighs about 11,760 N, so this isn’t enough yet. Push harder or make the big piston wider.`}
+$('f1').oninput=$('rt').oninput=pas;pas();
+
+/* Viscosity */
+const V=[['Water','#9bd3f2',1.2],['Cooking oil','#e8c64a',4],['Honey','#d98e04',10]];
+$('tb').innerHTML=V.map(v=>`<div class="tc"><div class="tube" style="background:${v[1]}"><i></i></div>${v[0]}</div>`).join('');
+$('drop').onclick=()=>{const b=Q('.tube i');b.forEach(x=>{x.style.transition='none';x.style.top='2px'});void $('tb').offsetWidth;b.forEach((x,i)=>{x.style.transition=`top ${V[i][2]}s ease-in`;x.style.top='170px'})};
+</script></body></html>
